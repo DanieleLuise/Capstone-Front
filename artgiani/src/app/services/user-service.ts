@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { IUser } from '../models/i-user';
@@ -14,18 +14,24 @@ export class UserService {
   updateProfile(id: number, user: IUser): Observable<IUser> {
     return this.http.put<IUser>(`${this.apiUrl}/user/${id}`, user);
   }
-  uploadAvatar(username: string, file: File): Observable<any> {
+
+  uploadAvatar(userId: number, file: File): Observable<{ url: string }> {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${this.apiUrl}/user/${username}/avatar`, formData);
-  }
-  updateProfileWithAvatar(userId: number, formData: FormData): Observable<IUser> {
-    return this.http.put<IUser>(`${this.apiUrl}/user/${userId}`, formData);
+
+  let stAccessData = localStorage.getItem('accessData'); // Assumi che il token sia salvato con questo nome
+  const accessData = JSON.parse(stAccessData||'')
+ const token = accessData.token;
+ const headers = new HttpHeaders({
+   'Authorization': `Bearer ${token}`
+ });
+
+
+
+    return this.http.post<{ url: string }>(`${this.apiUrl}/user/${userId}/avatar`, formData, { headers });
   }
 
-  getUserById(id: number): Observable<IUser> {
-    return this.http.get<IUser>(`${this.apiUrl}/user/${id}`);
-  }
+
 
 
 }

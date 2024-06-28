@@ -36,15 +36,18 @@ export class ProfiloComponent implements OnInit{
 
   onUpload(): void {
     if (this.user && this.selectedFile) {
-      this.userService.uploadAvatar(this.user.username, this.selectedFile).pipe(
+      this.userService.uploadAvatar(this.user.id, this.selectedFile).pipe(
         tap(response => {
           if (this.user) {
             this.user.avatar = response.url;
           }
         })
       ).subscribe({
-        next: () => {
-          console.log('Avatar aggiornato con successo.');
+        next: (response) => {
+          if (this.user) {
+            this.user.avatar = response.url;
+            console.log('Avatar aggiornato con successo.');
+          }
         },
         error: (error) => {
           console.error('Errore durante il caricamento dell\'avatar', error);
