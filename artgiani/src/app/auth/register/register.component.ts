@@ -10,27 +10,35 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerData:Partial<IUser> = {
-    firstName:"daniele",
-    lastName:"luise",
+    firstName:"Daniele",
+    lastName:"Luise",
     username:"kekw",
     email:"luise@gmai.com",
     citta: "Napoli",
     codiceFiscale:"daddy",
     password: "password123"
   }
+  selectedFile: File | null = null;
 
   constructor(
     private authSvc:AuthService,
     private router:Router
     ){}
 
-  signUp(){
-    this.authSvc.register(this.registerData)
-    .subscribe(data => {
+    signUp() {
+      this.authSvc.register(this.registerData).subscribe({
+        next: (data) => {
+          this.router.navigate(['/auth/login']);
+        },
+        error: (err) => {
+          console.error('Errore durante la registrazione', err);
+        }
+      });
+    }
 
-      this.router.navigate([''])
 
-    })
-  }
+    onFileSelected(event: any): void {
+      this.selectedFile = event.target.files[0];
+    }
 
 }

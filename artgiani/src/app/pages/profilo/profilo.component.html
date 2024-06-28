@@ -1,1 +1,48 @@
 <p>profilo works!</p>
+
+<div class="profile-container" *ngIf="user">
+  <h2>Profilo di {{ user.firstName }} {{ user.lastName }}</h2>
+
+  <form (ngSubmit)="onSave()">
+    <div>
+      <label for="firstName">Nome:</label>
+      <div>
+        <label for="avatar">Avatar:</label>
+        <input type="file" (change)="onFileSelected($event)">
+      </div>
+
+      <div *ngIf="user.avatar">
+        <img [src]="user.avatar" alt="Avatar" width="100">
+      </div>
+
+      <button type="submit">Update Profile</button>
+      <input id="firstName" [(ngModel)]="user.firstName" name="firstName" required>
+    </div>
+
+    <div>
+      <label for="lastName">Cognome:</label>
+      <input id="lastName" [(ngModel)]="user.lastName" name="lastName" required>
+    </div>
+
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="user.email" name="email" type="email" required>
+    </div>
+
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" [(ngModel)]="user.username" name="username" required>
+    </div>
+
+    <div>
+      <label for="citta">Città:</label>
+      <input id="citta" [(ngModel)]="user.citta" name="citta">
+    </div>
+
+    <div>
+      <label for="codiceFiscale">Codice Fiscale:</label>
+      <input id="codiceFiscale" [(ngModel)]="user.codiceFiscale" name="codiceFiscale">
+    </div>
+
+  </form>
+</div>

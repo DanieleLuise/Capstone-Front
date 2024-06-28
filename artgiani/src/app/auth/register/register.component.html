@@ -1,6 +1,7 @@
 <h1>Registrati</h1>
 
-<form>
+
+  <form (ngSubmit)="signUp()">
 
   <input type="text" name="firstName"
   [(ngModel)]="registerData.firstName"
@@ -31,6 +32,7 @@
   [(ngModel)]="registerData.password"
   class="form-control" placeholder="password">
 
-  <button (click)="signUp()" class="btn btn-success">Registrati</button>
+
+  <button class="btn btn-success">Registrati</button>
 
 </form>

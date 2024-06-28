@@ -7,6 +7,7 @@ export interface IUser {
     citta:string,
     codiceFiscale:string,
     password:string,
+    avatar?:string
 
 
 }

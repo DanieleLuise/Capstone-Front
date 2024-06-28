@@ -21,6 +21,7 @@ type AccessData = {
 export class AuthService {
   jwtHelper:JwtHelperService = new JwtHelperService()
   authSubject = new BehaviorSubject<IUser|null>(null);
+  private apiUrl = environment.apiUrl;
 
   user$ = this.authSubject.asObservable()
   isLoggedIn$ = this.user$.pipe(
@@ -37,11 +38,15 @@ export class AuthService {
     this.restoreUser()//come prima cosa controllo se è già attiva una sessione, e la ripristino
    }
 
+
+
 registerUrl:string = environment.registerUrl
 loginUrl:string = environment.loginUrl
-register(newUser:Partial<IUser>):Observable<AccessData>{
-  return this.http.post<AccessData>(this.registerUrl,newUser)
+
+register(user: Partial<IUser>): Observable<any> {
+  return this.http.post(`${this.apiUrl}/user/register`, user);
 }
+
 
 login(loginData:ILogin):Observable<AccessData>{
   return this.http.post<AccessData>(this.loginUrl,loginData)
@@ -134,4 +139,22 @@ errors(err: any) {
           break;
   }
 }
+
+
+//servizio per il profilo
+getUserProfile(): IUser | null {
+  const userJson = localStorage.getItem('accessData');
+  if (!userJson) return null;
+
+  const accessData: AccessData = JSON.parse(userJson);
+  return accessData.user;
+}
+
+updateLocalUser(user: IUser) {
+  const accessData = JSON.parse(localStorage.getItem('accessData') || '{}');
+  accessData.user = user;
+  localStorage.setItem('accessData', JSON.stringify(accessData));
+  this.authSubject.next(user);
+}
+
 }
