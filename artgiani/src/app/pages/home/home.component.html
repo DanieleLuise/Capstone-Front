@@ -1,1 +1,17 @@
 <p>home works!</p>
+<button routerLink="/aggiungi">Carica nuovo prodotto</button>
+
+<!-- Modal per il caricamento del prodotto -->
+
+
+<!-- Lista prodotti -->
+<div *ngFor="let prodotto of prodotti">
+  <div>
+    <img [src]="prodotto.immagine" alt="Product Image">
+    <p>{{ prodotto.nome }}</p>
+    <p>{{ prodotto.descrizione }}</p>
+    <p>{{ prodotto.prezzo }} €</p>
+    <p>{{ prodotto.quantita }}</p>
+    <p>Venditore: {{ prodotto.firstName}} {{ prodotto.lastName }}</p>
+  </div>
+</div>
