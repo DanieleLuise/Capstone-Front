@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IProdotto } from '../../models/i-prodotto';
 import { ProdottoService } from '../../services/prodotto.service';
+import { CartService } from '../../services/cart.service';
+import { ProductStateService } from '../../services/product-state.service';
 
 @Component({
   selector: 'app-home',
@@ -11,35 +13,27 @@ export class HomeComponent implements OnInit{
   prodotti: IProdotto[] = [];
 
 
-  constructor(private prodottoService: ProdottoService) { }
+  constructor( private cartService: CartService, private productStateService: ProductStateService) { }
 
   ngOnInit(): void {
-    this.loadProdotti();
-  }
-
-  loadProdotti(): void {
-    this.prodottoService.getAllProdotti().subscribe({
-      next: (prodotti) => {
-        console.log('Prodotti caricati:', prodotti);
-        this.prodotti = prodotti.map(prodotto => {
-          console.log('Prodotto:', prodotto);
-          return {
-            ...prodotto,
-            firstName: prodotto.firstName || 'N/A',
-            lastName: prodotto.lastName || 'N/A'
-          };
-        });
-      },
-      error: (err) => {
-        console.error('Errore nel caricamento dei prodotti:', err);
-      }
+    this.productStateService.prodotti$.subscribe(prodotti => {
+      this.prodotti = prodotti;
     });
   }
 
 
+    addToCart(prodotto: IProdotto): void {
+      if (prodotto.quantita > 0) {
+        this.cartService.addToCart(prodotto);
+      } else {
+        console.log('Prodotto non disponibile');
+      }
+    }
 
-  onProductAdded(prodotto: IProdotto): void {
-    this.prodotti.push(prodotto);
-    console.log('Product added:', prodotto);
+
+
   }
-}
+
+
+
+

@@ -13,5 +13,7 @@
     <p>{{ prodotto.prezzo }} €</p>
     <p>{{ prodotto.quantita }}</p>
     <p>Venditore: {{ prodotto.firstName}} {{ prodotto.lastName }}</p>
+    <button (click)="addToCart(prodotto)" [disabled]="prodotto.quantita === 0">Aggiungi al carrello</button>
+    <p *ngIf="prodotto.quantita === 0">Non disponibile</p>
   </div>
 </div>

@@ -50,4 +50,10 @@ export class ProdottoService {
     const headers = this.getAuthHeaders();
     return this.http.post<IProdotto>(`${this.prodottiUrl}`, formData, { headers });
   }
+
+  updateProductQuantity(id: number, quantity: number): Observable<IProdotto> {
+    const headers = this.getAuthHeaders();
+  const payload = { quantity };
+  return this.http.put<IProdotto>(`${this.prodottiUrl}/${id}/quantity`, payload, { headers });
+}
 }

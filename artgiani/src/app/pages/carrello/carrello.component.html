@@ -1,1 +1,13 @@
 <p>carrello works!</p>
+<div *ngFor="let prodotto of cart">
+  <div>
+    <img [src]="prodotto.immagine" alt="Product Image">
+    <p>{{ prodotto.nome }}</p>
+    <p>{{ prodotto.descrizione }}</p>
+    <p>{{ prodotto.prezzo }} €</p>
+    <p>{{ prodotto.quantita }}</p>
+  </div>
+</div>
+
+<button (click)="purchaseCart()">Acquista</button>
+<button (click)="clearCart()">Svuota carrello</button>
