@@ -52,8 +52,15 @@ export class ProdottoService {
   }
 
   updateProductQuantity(id: number, quantity: number): Observable<IProdotto> {
-    const headers = this.getAuthHeaders();
+  const headers = this.getAuthHeaders();
   const payload = { quantity };
   return this.http.put<IProdotto>(`${this.prodottiUrl}/${id}/quantity`, payload, { headers });
 }
+
+deleteProdotto(id: number): Observable<void> {
+  const headers = this.getAuthHeaders();
+  return this.http.delete<void>(`${this.prodottiUrl}/${id}`, { headers });
+}
+
+
 }

@@ -1,3 +1,4 @@
+import { ProductStateService } from './../../../services/product-state.service';
 import { Router } from '@angular/router';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { IProdotto } from '../../../models/i-prodotto';
@@ -14,12 +15,9 @@ export class ProdottoComponent {
   prodotto: Partial<IProdotto> = {};
   selectedFile: File[] = [];
 
-  constructor(private prodottoService: ProdottoService, private authService: AuthService,private router:Router) {
+  constructor(private prodottoService: ProdottoService,private productStateService:ProductStateService, private authService: AuthService,private router:Router) {
     console.log('ProdottoComponent loaded');
    }
-
-
-
 
   onFileSelected(event: any): void {
     this.selectedFile =  Array.from(event.target.files);
@@ -38,6 +36,7 @@ export class ProdottoComponent {
       this.prodottoService.createProdotto(this.prodotto, this.selectedFile).subscribe({
         next: (prodotto) => {
           console.log('Product Created:', prodotto);
+          this.productStateService.addProduct(prodotto); // Aggiorna la lista dei prodotti
           this.productAdded.emit(prodotto);
           this.router.navigate([''])
         },

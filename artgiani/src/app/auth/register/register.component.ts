@@ -9,15 +9,7 @@ import { Router } from '@angular/router';
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-  registerData:Partial<IUser> = {
-    firstName:"Daniele",
-    lastName:"Luise",
-    username:"kekw",
-    email:"luise@gmai.com",
-    citta: "Napoli",
-    codiceFiscale:"daddy",
-    password: "password123"
-  }
+  registerData:Partial<IUser> = {}
   selectedFile: File | null = null;
 
   constructor(

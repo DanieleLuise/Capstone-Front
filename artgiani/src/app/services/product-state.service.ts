@@ -41,4 +41,12 @@ export class ProductStateService {
     const currentProdotti = this.prodottiSubject.getValue();
     this.prodottiSubject.next([...currentProdotti, prodotto]);
   }
+
+  removeProduct(id: number): void {
+
+      const currentProdotti = this.prodottiSubject.getValue();
+      const updatedProdotti = currentProdotti.filter(prodotto => prodotto.id !== id);
+      this.prodottiSubject.next(updatedProdotti);
+
+  }
 }
