@@ -1,24 +1,32 @@
-<p>prodotto works!</p>
-<form (ngSubmit)="submitProduct()">
-  <div>
-    <label for="nome">Nome:</label>
-    <input id="nome" [(ngModel)]="prodotto.nome" name="nome" required>
-  </div>
-  <div>
-    <label for="descrizione">Descrizione:</label>
-    <input id="descrizione" [(ngModel)]="prodotto.descrizione" name="descrizione" required>
-  </div>
-  <div>
-    <label for="prezzo">Prezzo:</label>
-    <input id="prezzo" [(ngModel)]="prodotto.prezzo" name="prezzo" type="number" required>
-  </div>
-  <div>
-    <label for="quantità">Quantità:</label>
-    <input id="quantità" [(ngModel)]="prodotto.quantita" name="quantità" type="number" required>
-  </div>
-  <div>
-    <label for="file">Immagine:</label>
-    <input id="file" type="file" (change)="onFileSelected($event)">
-  </div>
-  <button type="submit">Salva</button>
-</form>
+<div class="form-container my-4">
+  <form class="form" (ngSubmit)="submitProduct()">
+    <p class="heading">Carica una nuova creazione</p>
+
+    <div class="input-group">
+      <label for="nome">Nome:</label>
+      <input id="nome" [(ngModel)]="prodotto.nome" name="nome" required class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="descrizione">Descrizione:</label>
+      <input id="descrizione" [(ngModel)]="prodotto.descrizione" name="descrizione" required class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="prezzo">Prezzo:</label>
+      <input id="prezzo" [(ngModel)]="prodotto.prezzo" name="prezzo" type="number" required class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="quantità">Quantità:</label>
+      <input id="quantità" [(ngModel)]="prodotto.quantita" name="quantità" type="number" required class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="file">Immagine:</label>
+      <input id="file" type="file" (change)="onFileSelected($event)" class="input-file">
+    </div>
+
+    <button type="submit" class="btn">Salva</button>
+  </form>
+</div>

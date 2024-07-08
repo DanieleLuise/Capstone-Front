@@ -1,13 +1,23 @@
 <p>carrello works!</p>
-<div *ngFor="let prodotto of cart">
-  <div>
-    <img [src]="prodotto.immagine" alt="Product Image">
-    <p>{{ prodotto.nome }}</p>
-    <p>{{ prodotto.descrizione }}</p>
-    <p>{{ prodotto.prezzo }} €</p>
-    <p>{{ prodotto.quantita }}</p>
+
+<!-- Lista prodotti nel carrello -->
+<div class="product-list">
+  <div class="card" *ngFor="let prodotto of cart">
+    <div class="card-img">
+      <img [src]="prodotto.immagine" alt="Product Image" class="img-fluid">
+    </div>
+    <div class="card-info">
+      <p class="text-title">{{ prodotto.nome }}</p>
+      <p class="text-body">{{ prodotto.descrizione }}</p>
+    </div>
+    <div class="card-footer">
+      <span class="text-title">{{ prodotto.prezzo }} €</span>
+      <span class="text-body">Quantità: {{ prodotto.quantita }}</span>
+    </div>
   </div>
 </div>
 
-<button (click)="purchaseCart()">Acquista</button>
-<button (click)="clearCart()">Svuota carrello</button>
+<div class="cart-buttons">
+  <button (click)="purchaseCart()" class="btn">Acquista</button>
+  <button (click)="clearCart()" class="btn btn-danger">Svuota carrello</button>
+</div>

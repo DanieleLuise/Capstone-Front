@@ -1,39 +1,44 @@
-<p>profilo works!</p>
+<div class="form-container my-4">
+  <div *ngIf="user" class="form">
+    <p class="heading">{{ user.firstName }}'s Profile</p>
 
-<div *ngIf="user">
-  <h1>{{ user.firstName }}'s Profile</h1>
+    <div class="input-group">
+      <label for="firstName">First Name:</label>
+      <input id="firstName" [(ngModel)]="user.firstName" type="text" class="input">
+    </div>
 
-  <div>
-    <label for="firstName">First Name:</label>
-    <input id="firstName" [(ngModel)]="user.firstName" type="text">
-  </div>
-  <div>
-    <label for="lastName">Last Name:</label>
-    <input id="lastName" [(ngModel)]="user.lastName" type="text">
-  </div>
-  <div>
-    <label for="username">Username:</label>
-    <input id="username" [(ngModel)]="user.username" type="text">
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" [(ngModel)]="user.email" type="text">
-  </div>
-  <div>
-    <label for="citta">City:</label>
-    <input id="citta" [(ngModel)]="user.citta" type="text">
-  </div>
-  <div>
-    <label for="codiceFiscale">Codice Fiscale:</label>
-    <input id="codiceFiscale" [(ngModel)]="user.codiceFiscale" type="text">
-  </div>
+    <div class="input-group">
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" [(ngModel)]="user.lastName" type="text" class="input">
+    </div>
 
-  <div>
-    <label for="avatar">Avatar:</label>
-    <img *ngIf="user.avatar" [src]="user.avatar" alt="User Avatar">
-    <input type="file" (change)="onFileSelected($event)">
-    <button (click)="onUpload()">Carica Avatar</button>
-  </div>
+    <div class="input-group">
+      <label for="username">Username:</label>
+      <input id="username" [(ngModel)]="user.username" type="text" class="input">
+    </div>
 
-  <button (click)="onSave()">Salva Profilo</button>
+    <div class="input-group">
+      <label for="email">Email:</label>
+      <input id="email" [(ngModel)]="user.email" type="text" class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="citta">City:</label>
+      <input id="citta" [(ngModel)]="user.citta" type="text" class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="codiceFiscale">Codice Fiscale:</label>
+      <input id="codiceFiscale" [(ngModel)]="user.codiceFiscale" type="text" class="input">
+    </div>
+
+    <div class="input-group">
+      <label for="avatar">Avatar:</label>
+      <img *ngIf="user.avatar" [src]="user.avatar" alt="User Avatar" class="avatar">
+      <input type="file" (change)="onFileSelected($event)" class="input-file">
+      <button (click)="onUpload()" class="btn">Carica Avatar</button>
+    </div>
+
+    <button (click)="onSave()" class="btn">Salva Profilo</button>
+  </div>
 </div>

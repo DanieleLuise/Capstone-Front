@@ -1,16 +1,11 @@
 
-<h1>Accedi</h1>
+<div class="form-container my-4">
 
-<form>
+  <form class="form">
+    <p class="heading">LOGIN <br> CREA E MOSTRA </p>
+    <input type="text" name="username" [(ngModel)]="loginData.username" class="input" placeholder="Username">
+    <input type="password" name="password" [(ngModel)]="loginData.password" class="input" placeholder="Password">
+    <button (click)="signIn()" class="btn">Submit</button>
+  </form>
 
-  <input type="text" name="username"
-  [(ngModel)]="loginData.username"
-  class="form-control" placeholder="username">
-
-  <input type="password" name="password"
-  [(ngModel)]="loginData.password"
-  class="form-control" placeholder="password">
-
-  <button (click)="signIn()" class="btn btn-success">Accedi</button>
-
-</form>
+</div>
