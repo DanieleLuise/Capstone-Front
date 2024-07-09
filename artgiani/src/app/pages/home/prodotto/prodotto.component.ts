@@ -30,17 +30,19 @@ export class ProdottoComponent {
     console.log('Current User:', currentUser);
 
     if (currentUser && this.selectedFile.length > 0) {
-       this.prodotto.idUser = currentUser.id;
+      this.prodotto.idUser = currentUser.id;
       console.log('Prodotto before submit:', this.prodotto);
 
       this.prodottoService.createProdotto(this.prodotto, this.selectedFile).subscribe({
         next: (prodotto) => {
           console.log('Product Created:', prodotto);
+          // Aggiungi le informazioni del venditore al prodotto creato
+          prodotto.firstName = currentUser.firstName;
+          prodotto.lastName = currentUser.lastName;
           this.productStateService.addProduct(prodotto); // Aggiorna la lista dei prodotti
           this.productAdded.emit(prodotto);
-          this.router.navigate([''])
+          this.router.navigate(['']);
         },
-
         error: (err) => {
           console.error('Error creating product:', err);
         }
