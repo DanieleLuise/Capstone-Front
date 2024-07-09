@@ -1,4 +1,4 @@
-<p>carrello works!</p>
+
 
 <!-- Lista prodotti nel carrello -->
 <div class="product-list">
@@ -11,8 +11,10 @@
       <p class="text-body">{{ prodotto.descrizione }}</p>
     </div>
     <div class="card-footer">
-      <span class="text-title">{{ prodotto.prezzo }} €</span>
-      <span class="text-body">Quantità: {{ prodotto.quantita }}</span>
+      <div class="footer-content">
+        <span class="text-title">{{ prodotto.prezzo }} €</span>
+        <span class="text-body">Quantità: {{ prodotto.quantita }}</span>
+      </div>
     </div>
   </div>
 </div>

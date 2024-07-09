@@ -16,8 +16,9 @@ export class ProfiloComponent implements OnInit{
   constructor(private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.user = this.authService.getUserProfile();
-    this.authService.user$.subscribe(user => this.user = user);
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
   }
 
   updateProfile() {
@@ -27,7 +28,6 @@ export class ProfiloComponent implements OnInit{
         this.authService.updateLocalUser(updatedUser);
       });
     }
-
   }
 
   onFileSelected(event: any): void {
@@ -36,37 +36,29 @@ export class ProfiloComponent implements OnInit{
 
   onUpload(): void {
     if (this.user && this.selectedFile) {
-      this.userService.uploadAvatar(this.user.id, this.selectedFile).pipe(
-        tap(response => {
-          if (this.user) {
-            this.user.avatar = response.url;
-          }
-        })
-      ).subscribe({
-        next: (response) => {
-          if (this.user) {
-            this.user.avatar = response.url;
-            console.log('Avatar aggiornato con successo.');
-          }
-        },
-        error: (error) => {
-          console.error('Errore durante il caricamento dell\'avatar', error);
+      this.userService.uploadAvatar(this.user.id, this.selectedFile).subscribe(response => {
+        if (this.user) {
+          this.user.avatar = response.url;
+          this.authService.updateLocalUser(this.user);
+          console.log('Avatar aggiornato con successo.');
         }
+      }, error => {
+        console.error('Errore durante il caricamento dell\'avatar', error);
       });
     }
   }
 
-onSave(): void {
-  if (this.user) {
-    this.userService.updateProfile(this.user.id, this.user).subscribe(
-      updatedUser => {
-        this.user = updatedUser;
-      },
-      error => {
-        console.error('Errore durante l\'aggiornamento del profilo', error);
-      }
-    );
+  onSave(): void {
+    if (this.user) {
+      this.userService.updateProfile(this.user.id, this.user).subscribe(
+        updatedUser => {
+          this.user = updatedUser;
+          this.authService.updateLocalUser(updatedUser);
+        },
+        error => {
+          console.error('Errore durante l\'aggiornamento del profilo', error);
+        }
+      );
+    }
   }
-}
-
 }

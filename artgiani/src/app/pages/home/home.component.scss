@@ -6,12 +6,12 @@
 }
 
 .card {
-  width: 190px;
-  height: 300px; /* Adjusted height to fit content */
+  width: 300px; /* Increased width */
+  height: 450px; /* Increased height */
   padding: .8em;
   background: #f5f5f5;
   position: relative;
-  overflow: visible;
+  overflow: hidden; /* Ensure content stays within card */
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   display: flex;
   flex-direction: column;
@@ -20,13 +20,21 @@
 
 .card-img {
   background-color: #ffcaa6;
-  height: 40%;
+  height: 40%; /* Adjusted height */
   width: 100%;
   border-radius: .5rem;
-  transition: .3s ease;
+  transition: transform .3s ease; /* Added transition for transform */
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden; /* Ensure image stays within the card */
+  position: relative; /* Make it positioned relative */
+  z-index: 1; /* Ensure it is on top */
+}
+
+.card:hover .card-img {
+  transform: scale(1.2); /* Increase size on hover */
+  z-index: 2; /* Ensure it overlays other elements */
 }
 
 .card-img img {
@@ -36,7 +44,17 @@
 }
 
 .card-info {
-  padding-top: 10%;
+  padding-top: 5%; /* Adjusted padding */
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.text-body {
+  font-size: .8em; /* Reduced font size */
+  padding-bottom: 10px;
+  height: 60px; /* Fixed height */
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 svg {
@@ -53,6 +71,17 @@ svg {
   border-top: 1px solid #ddd;
 }
 
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.vendor-info {
+  font-size: 0.9em;
+  color: #555;
+}
+
 /*Text*/
 .text-title {
   font-weight: 900;
@@ -60,14 +89,9 @@ svg {
   line-height: 1.5;
 }
 
-.text-body {
-  font-size: .9em;
-  padding-bottom: 10px;
-}
-
 .text-unavailable {
   font-weight: 900;
-  font-size: 0,9em;
+  font-size: 0.9em;
   color: red;
 }
 
@@ -87,9 +111,9 @@ svg {
 }
 
 /*Hover*/
-.card-img:hover {
-  transform: translateY(-25%);
-  box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
+.card:hover .card-img {
+  transform: scale(1.2); /* Increase size on hover */
+  z-index: 2; /* Ensure it overlays other elements */
 }
 
 .card-button:hover {
