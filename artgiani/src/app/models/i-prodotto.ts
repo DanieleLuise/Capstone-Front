@@ -10,5 +10,7 @@ export interface IProdotto {
  firstName:string,
  lastName:string,
  idUser?:number
-
+ email: string;
+ citta: string;
 }
+

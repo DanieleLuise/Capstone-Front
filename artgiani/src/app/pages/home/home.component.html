@@ -1,6 +1,4 @@
-
 <button routerLink="/aggiungi" class="btn">Carica nuovo prodotto</button>
-
 <!-- Lista prodotti -->
 <div class="product-list">
   <div class="card" *ngFor="let prodotto of prodotti">
@@ -15,7 +13,10 @@
       <div class="footer-content">
         <span class="text-title" *ngIf="prodotto.quantita > 0">{{ prodotto.prezzo }} €</span>
         <span class="text-unavailable" *ngIf="prodotto.quantita === 0">Non disponibile</span>
-        <p class="vendor-info">Venditore: {{ prodotto.firstName }} {{ prodotto.lastName }}</p>
+        <p class="vendor-info">
+          Venditore: {{ prodotto.firstName }} {{ prodotto.lastName }}
+          <button class="btn btn-info btn-sm" (click)="openVendorInfo(prodotto,currentUser)">Info</button>
+        </p>
       </div>
       <div class="card-button" (click)="addToCart(prodotto)" [ngClass]="{'disabled': prodotto.quantita === 0}">
         <svg class="svg-icon" viewBox="0 0 20 20">
@@ -30,3 +31,20 @@
     </button>
   </div>
 </div>
+
+<ng-template #vendorInfo let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Informazioni Venditore</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p><strong>Nome:</strong> {{ selectedVendor?.firstName }} {{ selectedVendor?.lastName }}</p>
+    <p><strong>Email:</strong> {{ selectedVendor?.email }}</p>
+    <p><strong>Città:</strong> {{ selectedVendor?.citta }}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Close click')">Chiudi</button>
+  </div>
+</ng-template>

@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { IProdotto } from '../../models/i-prodotto';
 import { ProdottoService } from '../../services/prodotto.service';
 import { CartService } from '../../services/cart.service';
 import { ProductStateService } from '../../services/product-state.service';
 import { AuthService } from '../../auth/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IUser } from '../../models/i-user';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +15,11 @@ import { AuthService } from '../../auth/auth.service';
 export class HomeComponent implements OnInit{
   prodotti: IProdotto[] = [];
   currentUser: any;
+selectedVendor: any;
 
-  constructor(private prodottoService:ProdottoService, private cartService: CartService, private productStateService: ProductStateService, private authService: AuthService) { }
+
+@ViewChild('vendorInfo', { static: true }) vendorInfoTemplate!: TemplateRef<any>;
+  constructor(private modalService: NgbModal,private prodottoService:ProdottoService, private cartService: CartService, private productStateService: ProductStateService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.productStateService.prodotti$.subscribe(prodotti => {
@@ -47,6 +52,15 @@ export class HomeComponent implements OnInit{
       });
     }
 
+    openVendorInfo(prodotto: IProdotto, user:IUser): void {
+      this.selectedVendor = {
+        firstName: prodotto.firstName,
+        lastName: prodotto.lastName,
+        email: user.email, // assuming this data is available in the prodotto object
+        citta: user.citta // assuming this data is available in the prodotto object
+      };
+      this.modalService.open(this.vendorInfoTemplate);
+    }
   }
 
 
