@@ -11,3 +11,18 @@ body{
   font-family: "Merriweather", sans-serif;
 
 }
+html,
+body,
+app-root {
+height: 100%;
+}
+body{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+main{
+  flex-grow:1;
+
+}
+
