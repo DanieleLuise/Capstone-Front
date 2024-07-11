@@ -16,10 +16,10 @@ export class HomeComponent implements OnInit{
   prodotti: IProdotto[] = [];
   currentUser: any;
 selectedVendor: any;
-
-
 @ViewChild('vendorInfo', { static: true }) vendorInfoTemplate!: TemplateRef<any>;
-  constructor(private modalService: NgbModal,private prodottoService:ProdottoService, private cartService: CartService, private productStateService: ProductStateService, private authService: AuthService) { }
+
+
+  constructor(private modalService: NgbModal,private prodottoService:ProdottoService, private cartService: CartService, private productStateService: ProductStateService, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.productStateService.prodotti$.subscribe(prodotti => {
@@ -38,6 +38,11 @@ selectedVendor: any;
   }
 
     addToCart(prodotto: IProdotto): void {
+      if (!this.authService.syncIsLoggedIn) {
+        alert('Devi essere loggato per aggiungere prodotti al carrello');
+        return;
+      }
+
       if (prodotto.quantita > 0) {
         this.cartService.addToCart(prodotto);
       } else {
@@ -53,6 +58,12 @@ selectedVendor: any;
     }
 
     openVendorInfo(prodotto: IProdotto, user:IUser): void {
+
+      if (!this.authService.syncIsLoggedIn) {
+        alert('Devi essere loggato per vedere le informazioni del venditore');
+        return;
+      }
+
       this.selectedVendor = {
         firstName: prodotto.firstName,
         lastName: prodotto.lastName,

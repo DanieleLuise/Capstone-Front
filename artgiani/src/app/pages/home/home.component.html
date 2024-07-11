@@ -15,7 +15,7 @@
         <span class="text-unavailable" *ngIf="prodotto.quantita === 0">Non disponibile</span>
         <p class="vendor-info">
           Venditore: {{ prodotto.firstName }} {{ prodotto.lastName }}
-          <button class="btn btn-info btn-sm" (click)="openVendorInfo(prodotto,currentUser)">Info</button>
+          <button class="btn btn-info btn-sm" (click)="openVendorInfo(prodotto,currentUser)" [disabled]="!authService.syncIsLoggedIn">Info</button>
         </p>
       </div>
       <div class="card-button" (click)="addToCart(prodotto)" [ngClass]="{'disabled': prodotto.quantita === 0}">
